@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 
+import history from "../history";
 import StreamCreate from "./streams/StreamCreate";
 import StreamEdit from "./streams/StreamEdit";
 import StreamDelete from "./streams/StreamDelete";
@@ -13,25 +14,19 @@ export class App extends Component {
   render() {
     return (
       <div className="ui container">
-        <Router>
+        <Router history={history}>
           <div>
             <Header />
             <Switch>
-              <Route exact path="/">
-                <StreamList />
-              </Route>
-              <Route exact path="/streams/new">
-                <StreamCreate />
-              </Route>
-              <Route exact path="/streams/edit">
-                <StreamEdit />
-              </Route>
-              <Route exact path="/streams/delete">
-                <StreamDelete />
-              </Route>
-              <Route exact path="/streams/show">
-                <StreamShow />
-              </Route>
+              <Route path="/" exact component={StreamList} />
+              <Route path="/streams/new" exact component={StreamCreate} />
+              <Route path="/streams/edit/:id" exact component={StreamEdit} />
+              <Route
+                path="/streams/delete/:id"
+                exact
+                component={StreamDelete}
+              />
+              <Route path="/streams/:id" exact component={StreamShow} />
             </Switch>
           </div>
         </Router>
